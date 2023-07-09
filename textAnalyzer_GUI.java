@@ -9,9 +9,10 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
+/**
+ * Constructor for GUI (Swing Thread)
+ */
 public class textAnalyzer_GUI {
-	
 	//using parts of an old cop2805 project to make the gui... 
 	public static void contructGui() {
 		JFrame.setDefaultLookAndFeelDecorated(true);
@@ -35,7 +36,9 @@ public class textAnalyzer_GUI {
 		});
 	}
 }
-
+/**
+ * GUI for text analyzer
+ */
 class AGui extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
@@ -77,6 +80,11 @@ class AGui extends JFrame {
 	}
 
 	//function to log words and remove unwanted stuff
+	/**
+	 * Access word count via key: AGui.word.get([word]);
+	* @param HTML input
+	* @return String with no html tags or other special characters. Each word is logged in the 'word' variable.
+	*/
 	public String cleanAndLog(String content) {
 		//html tag junk
 		content = content.replaceAll("<[^>]*>", "");
@@ -99,6 +107,12 @@ class AGui extends JFrame {
 	}
 	
 	//needed this because the button can be clicked multiple times, and previous results would be lost due to the .remove function, oops!
+	/**
+	 * Deep copy hashmap
+	* @param map a new hashmap
+	* @param target the hashmap that needs to be copied
+	* @return A deep copy of the target hashmap
+	*/
 	public HashMap<String, Integer> deepClone(HashMap<String, Integer> map, HashMap<String, Integer> target) {
 		for(HashMap.Entry<String, Integer> key : target.entrySet()) {
 			map.put(key.getKey(), key.getValue());
@@ -107,6 +121,12 @@ class AGui extends JFrame {
 	}
 	
 	//function to find the top x word
+	/**
+	 * Find top x word
+	* @param thisMap hashmap containing all unsorted words
+	* @param topCount how many words should be included in the result 
+	* @return A linked hashmap of the sorted words
+	*/
 	public HashMap<String, Integer> findTop(HashMap<String, Integer> thisMap, Integer topCount) {
 		HashMap<String, Integer> copyMap = deepClone(new HashMap<String, Integer>(), thisMap);
 		LinkedHashMap<String, Integer> tempMap = new LinkedHashMap<String, Integer>();
@@ -163,6 +183,9 @@ class AGui extends JFrame {
 		this.setVisible(true);
 	}
 }
+/**
+ * Listener for GUI buttons
+ */
 class Command implements ActionListener {
 	AGui frame;
 	public Command(AGui f) {
